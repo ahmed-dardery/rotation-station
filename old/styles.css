@@ -1,0 +1,11 @@
+body {
+    display: flex;
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0;
+}
+canvas {
+    background: #eee;
+    display: block;
+    margin: auto auto;
+ }
