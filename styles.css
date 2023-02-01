@@ -1,6 +1,19 @@
 body {
     display: flex;
-    box-sizing: border-box;
+    justify-content: center;
     position: absolute;
     inset: 0;
+    margin: 50px;
+}
+
+game-area {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(lightblue, lavender);
+    border: royalblue solid 1rem;
+}
+
+game-area > svg {
+    position: absolute;
 }
