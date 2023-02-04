@@ -4,6 +4,7 @@ body {
     position: absolute;
     inset: 0;
     margin: 50px;
+    overflow: hidden;
 }
 
 game-area {

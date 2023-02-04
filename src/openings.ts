@@ -6,10 +6,10 @@ export enum OPENINGS {
   LEFT = 8,
 }
 
-export function rotateClockwise(openings: OPENINGS): OPENINGS {
-  return ((openings << 3) | (openings >> 1)) & 0b1111;
+export function rotateOpeningsClockwise(openings: OPENINGS, n = 1): OPENINGS {
+  return ((openings << (4-n)) | (openings >> n)) & 0b1111;
 }
 
-export function rotateAntiClockwise(openings: OPENINGS): OPENINGS {
-  return ((openings >> 3) | (openings << 1)) & 0b1111;
+export function rotateOpeningsAntiClockwise(openings: OPENINGS, n = 1): OPENINGS {
+  return ((openings >> (4-n)) | (openings << n)) & 0b1111;
 }
