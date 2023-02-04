@@ -8,13 +8,25 @@ body {
 }
 
 game-area {
+    user-select: none;
+    position: relative;
     aspect-ratio: 1 / 1;
-    background: linear-gradient(lightblue, lavender);
-    border: royalblue solid 1rem;
+    background: radial-gradient(#EFEFEF, #C0C0C0);
+    border: #2F4F4F solid 1rem;
     border-radius: 5%;
     line-height: 0;
 }
 
-game-area > img {
+game-area pieces,
+game-area cells {
+    position: absolute;
+    inset: 0;
+}
+
+game-area img {
     aspect-ratio: 1 / 1;
+}
+
+game-area pieces img {
+    position: absolute;
 }

@@ -1,49 +1,54 @@
-import {OPENINGS, rotateOpeningsClockwise} from "./openings";
+import {Colors, Openings, rotateOpeningsClockwise, Rotation} from "./definitions";
 
-const filePath = (cell) => `assets/cells/${cell}.svg`
-
-type Rotations = 0|90|180|270;
+const cellsPath = (cell) => `assets/cells/${cell}.svg`;
+const piecesPath = (piece) => `assets/pieces/${piece}.svg`;
 
 export class CellInfo {
   fileName: string;
-  initialOpenings: OPENINGS;
-  rotation?: Rotations;
+  initialOpenings: Openings;
+  rotation?: Rotation;
+}
+
+export class PieceInfo {
+  fileName: string;
+  color: Colors;
+  rotation?: Rotation
 }
 
 export const bar: CellInfo = {
-  fileName: filePath('bar'),
-  initialOpenings: OPENINGS.TOP | OPENINGS.BOTTOM,
+  fileName: cellsPath('bar'),
+  initialOpenings: Openings.TOP | Openings.BOTTOM,
 };
 
 export const corner: CellInfo = {
-  fileName: filePath('corner'),
-  initialOpenings: OPENINGS.TOP | OPENINGS.RIGHT,
+  fileName: cellsPath('corner'),
+  initialOpenings: Openings.TOP | Openings.RIGHT,
 };
 
 export const full: CellInfo = {
-  fileName: filePath('full'),
-  initialOpenings: OPENINGS.NONE,
+  fileName: cellsPath('full'),
+  initialOpenings: Openings.NONE,
 };
 
 export const lone: CellInfo = {
-  fileName: filePath('lone'),
-  initialOpenings: OPENINGS.TOP,
+  fileName: cellsPath('lone'),
+  initialOpenings: Openings.TOP,
 };
 
 export const shovel: CellInfo = {
-  fileName: filePath('shovel'),
-  initialOpenings: OPENINGS.TOP | OPENINGS.RIGHT | OPENINGS.BOTTOM,
+  fileName: cellsPath('shovel'),
+  initialOpenings: Openings.TOP | Openings.RIGHT | Openings.BOTTOM,
 };
 
 export const shuriken: CellInfo = {
-  fileName: filePath('shuriken'),
-  initialOpenings: OPENINGS.TOP | OPENINGS.RIGHT | OPENINGS.BOTTOM | OPENINGS.LEFT,
+  fileName: cellsPath('shuriken'),
+  initialOpenings: Openings.TOP | Openings.RIGHT | Openings.BOTTOM | Openings.LEFT,
 };
 
 export const CELLS = [bar, corner, full, lone, shovel, shuriken];
 
-export function getCellInfo(openings: OPENINGS): CellInfo{
-  const rotations: Rotations[] = [0, 90, 180, 270];
+export function getCellInfo(openings: Openings): CellInfo{
+  const rotations: Rotation[] = [0, 90, 180, 270];
 
   for(let rotation of rotations){
     for(let cell of CELLS){
@@ -55,4 +60,8 @@ export function getCellInfo(openings: OPENINGS): CellInfo{
       }
     }
   }
+}
+
+export function getPieceFileName(piece: Colors): string{
+  return piecesPath(piece);
 }

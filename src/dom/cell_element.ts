@@ -1,12 +1,12 @@
-import {OPENINGS, rotateOpeningsAntiClockwise, rotateOpeningsClockwise} from "./openings";
-import {getCellInfo} from "./svgs";
+import {Openings, rotateOpeningsAntiClockwise, rotateOpeningsClockwise} from "../definitions";
+import {getCellInfo} from "../svgs";
 import {animateFailure, animateRotate} from "./animation";
 
 export class CellElement {
   el: HTMLElement;
   private rotation: number;
 
-  constructor(public openings: OPENINGS, scaling: number, margin: number, canRotate: () => boolean) {
+  constructor(public openings: Openings, scaling: number, margin: number, canRotate: () => boolean) {
     const cellInfo = getCellInfo(openings);
     this.rotation = cellInfo.rotation;
 

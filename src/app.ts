@@ -3,4 +3,4 @@ import {constructLevel, LEVELS} from './levels';
 
 const gameArea = GameArea.getInstance();
 
-gameArea.initialize(constructLevel(LEVELS[0]));
+gameArea.initialize(constructLevel(LEVELS[1]));
