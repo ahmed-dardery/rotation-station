@@ -15,9 +15,9 @@
             </feMerge>
         </filter>
     </defs>
-    <circle fill="#A0C3D2" cx="105" cy="105" r="100" />
-    <circle fill="#EAC7C7" cx="105" cy="105" r="70.71" />
-    <circle fill="#A0C3D2" cx="105" cy="105" r="41.42" />
+    <circle fill="#D3D3D3" cx="105" cy="105" r="100" />
+    <circle fill="#696969" cx="105" cy="105" r="70.71" />
+    <circle fill="#D3D3D3" cx="105" cy="105" r="41.42" />
 
     <circle filter="url(#glow)" fill="none" stroke="black" cx="105" cy="105" r="100" />
     <circle filter="url(#glow)" fill="none" stroke="black" cx="105" cy="105" r="70.71" />

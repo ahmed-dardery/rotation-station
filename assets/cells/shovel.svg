@@ -20,9 +20,9 @@
         <path id="midu" d="M 105 105 m -94.3 -33.3 a 150 150 0 0 0 94.3 33.3 h 100 v -100 h -200"/>
         <path id="midd" d="M 105 105 m -94.3 33.3 a 150 150 0 0 1 94.3 -33.3 h 100 v 100 h -200"/>
     </defs>
-    <use clip-path="url(#clip)" fill="#EAC7C7" xlink:href="#path"/>
-    <use clip-path="url(#clip)" fill="#A0C3D2" xlink:href="#midu"/>
-    <use clip-path="url(#clip)" fill="#A0C3D2" xlink:href="#midd"/>
+    <use clip-path="url(#clip)" fill="#696969" xlink:href="#path"/>
+    <use clip-path="url(#clip)" fill="#D3D3D3" xlink:href="#midu"/>
+    <use clip-path="url(#clip)" fill="#D3D3D3" xlink:href="#midd"/>
 
     <use filter="url(#glow)" clip-path="url(#clip)" fill="none" stroke="black" stroke-width="2" xlink:href="#path"/>
     <use filter="url(#glow)" clip-path="url(#clip)" fill="none" stroke="black" xlink:href="#midu"/>

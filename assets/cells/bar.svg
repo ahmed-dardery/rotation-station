@@ -18,10 +18,10 @@
             <path id="path" d="M 105 105 m -70.7 -70.7 a 100 100 0 0 0 141.4 0 a 100 100 0 0 1 0 141.4 a 100 100 0 0 0 -141.4 0 a 100 100 0 0 1 0 -141.4 z"/>
         </clipPath>
     </defs>
-    <use clip-path="url(#clip)" fill="#EAC7C7" xlink:href="#path"/>
+    <use clip-path="url(#clip)" fill="#696969" xlink:href="#path"/>
 
-    <circle clip-path="url(#clip)" cx="105" cy="275.71" r="170.71" fill="#A0C3D2" stroke="none"/>
-    <circle clip-path="url(#clip)" cx="105" cy="-65.71" r="170.71" fill="#A0C3D2" stroke="none"/>
+    <circle clip-path="url(#clip)" cx="105" cy="275.71" r="170.71" fill="#D3D3D3" stroke="none"/>
+    <circle clip-path="url(#clip)" cx="105" cy="-65.71" r="170.71" fill="#D3D3D3" stroke="none"/>
 
     <circle filter="url(#glow)"  clip-path="url(#clip)" cx="105" cy="-65.71" r="170.71" fill="none" stroke="black"/>
     <circle filter="url(#glow)" clip-path="url(#clip)" cx="105" cy="275.71" r="170.71" fill="none" stroke="black"/>

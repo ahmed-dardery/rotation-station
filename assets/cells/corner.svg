@@ -20,9 +20,9 @@
         <path id="inner" clip-path="url(#clip)" d="M 105 105 m 0 -41.42 a 41.42 41.42 0 1 0 41.42 41.42 Z"/>
     </defs>
 
-    <use clip-path="url(#clip)" fill="#A0C3D2" xlink:href="#path"/>
-    <circle fill="#EAC7C7" clip-path="url(#clip)" cx="105" cy="105" r="70.71"/>
-    <use fill="#A0C3D2" clip-path="url(#clip)" stroke="black" xlink:href="#inner"/>
+    <use clip-path="url(#clip)" fill="#D3D3D3" xlink:href="#path"/>
+    <circle fill="#696969" clip-path="url(#clip)" cx="105" cy="105" r="70.71"/>
+    <use fill="#D3D3D3" clip-path="url(#clip)" stroke="black" xlink:href="#inner"/>
 
     <use filter="url(#glow)" clip-path="url(#clip)" fill="none" stroke="black" xlink:href="#inner"/>
     <circle filter="url(#glow)" fill="none" clip-path="url(#clip)" cx="105" cy="105" r="70.71" stroke="black"/>
