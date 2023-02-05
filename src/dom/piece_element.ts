@@ -16,6 +16,7 @@ export class PieceElement {
     this.el.setAttribute('draggable', 'false');
 
     this.el.setAttribute('src', getPieceFileName(piece.color));
+    this.el.setAttribute('class', 'piece');
 
     this.el.style.width = `${scaling * 100}%`;
 

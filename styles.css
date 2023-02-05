@@ -28,11 +28,18 @@ game-area cells img {
 
 game-area pieces img {
     position: absolute;
+}
+
+.piece {
     clip-path: ellipse(15% 34% at 14.62% 50%);
     opacity: 1;
     transition: opacity .3s ease;
 }
 
-game-area pieces img:hover {
+.target {
+    clip-path: polygon(38% 18%, 57.5% 50%, 38% 82%);;
+}
+
+.piece:hover {
     opacity: 0.5;
 }

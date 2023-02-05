@@ -75,5 +75,6 @@ export function constructLevel(code: string): Level {
 
 export const LEVELS = [
   'rb,tb,lb;rb,lr,tb;rb,tr,lb|l,2,2|b,0',
+  'tr,tb,lb;tr,tr,lr;tr,tb,tl|t,0,0;t,0,1;r,1,1;r,1,2|l,1;r,1;t,1;b,1',
   'tb,lr,tb;tr,tr,tl;tl,tl,tl|t,0,0;b,0,0;r,1,1;l,2,0|r,0;t,1;l,1;r,2',
 ]

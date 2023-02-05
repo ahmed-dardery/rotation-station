@@ -2,6 +2,7 @@ import {Colors, Openings, rotateOpeningsClockwise, Rotation} from "./definitions
 
 const cellsPath = (cell) => `assets/cells/${cell}.svg`;
 const piecesPath = (piece) => `assets/pieces/${piece}.svg`;
+const targetsPath = (piece) => `assets/targets/${piece}.svg`;
 
 export class CellInfo {
   fileName: string;
@@ -64,4 +65,8 @@ export function getCellInfo(openings: Openings): CellInfo{
 
 export function getPieceFileName(piece: Colors): string{
   return piecesPath(piece);
+}
+
+export function getTargetFileName(target: Colors): string{
+  return targetsPath(target);
 }
