@@ -3,11 +3,15 @@ import {animateFailure, animateRotate} from "./animation";
 import {Piece} from "../levels";
 import {getPieceFileName} from "../svgs";
 
+export type MoveAttemptCallBack = (location: [number, number], clockwise: boolean) => void;
+
 export class PieceElement {
   el: HTMLElement;
   private rotation: number;
 
-  constructor(public piece: Piece, scaling: number, private offset: number) {
+  private mouseDown?: [number, number];
+
+  constructor(public piece: Piece, scaling: number, private offset: number, private moveAttemptCallback: MoveAttemptCallBack) {
     this.el = document.createElement('img');
     this.el.setAttribute('draggable', 'false');
 
@@ -20,76 +24,100 @@ export class PieceElement {
 
     this.setPosition(...piece.location);
 
-    // @ts-ignore: for testing purposes, use: document.querySelector("body > game-area > pieces > img").test('tr')
-    this.el.test = (dir) => {
-      if(dir==='tl'){
-        this.rotateTowards(Corners.TOP_LEFT);
-      }
-      if(dir==='tr'){
-        this.rotateTowards(Corners.TOP_RIGHT);
-      }
-      if(dir==='bl'){
-        this.rotateTowards(Corners.BOTTOM_LEFT);
-      }
-      if(dir==='br'){
-        this.rotateTowards(Corners.BOTTOM_RIGHT);
-      }
-      if(dir==='s'){
-        this.switchAttachment();
-      }
-    };
+    this.el.addEventListener('mousedown', (event: MouseEvent) => {
+      this.mouseDown = [event.x, event.y];
+    });
+  }
+
+  onMouseUp(event) {
+    if (this.mouseDown == null){
+      return;
+    }
+
+    const [x, y] = this.mouseDown;
+    this.mouseDown = null;
+
+    let corner: Corners = 0;
+
+    if (event.x > x){
+      corner |= Openings.RIGHT;
+    } else {
+      corner |= Openings.LEFT;
+    }
+
+    if (event.y > y){
+      corner |= Openings.BOTTOM;
+    } else {
+      corner |= Openings.TOP;
+    }
+
+    if (this.piece.direction & corner) {
+      this.switchAttachment();
+    }
+
+    const clockwise = (rotateOpeningsClockwise(this.piece.direction) & corner) !== 0;
+
+    this.moveAttemptCallback(this.piece.location, clockwise);
   }
 
   deleteElement() {
     this.el.remove();
   }
 
-  rotateTowards(corner: Corners) {
-    if (this.piece.direction & corner){
-      this.switchAttachment();
-    }
-
-    if (rotateOpeningsClockwise(this.piece.direction) & corner){
-      this.rotateClockwise();
-    } else{
-      this.rotateAntiClockwise();
-    }
-  }
-
-  private switchAttachment() {
-    const back = [Openings.TOP, Openings.LEFT].includes(this.piece.direction);
-    const vertical = [Openings.TOP, Openings.BOTTOM].includes(this.piece.direction);
-
-    this.piece.direction = rotateOpeningsClockwise(this.piece.direction, 2);
-    this.rotation = (this.rotation + 180) % 360;
-    this.el.style.transform = `rotate(${this.rotation}deg)`;
-    this.piece.location[vertical ? 0 : 1] += back ? -1 : 1;
-
-    this.setPosition(...this.piece.location);
-  }
-
-  private rotateClockwise() {
+  rotateClockwise() {
     animateRotate(this.el, this.rotation, this.rotation + 90);
     this.rotation = (this.rotation + 90) % 360;
     this.piece.direction = rotateOpeningsClockwise(this.piece.direction);
   }
 
-  private rotateAntiClockwise() {
+  rotateAntiClockwise() {
     animateRotate(this.el, this.rotation, this.rotation - 90);
     this.rotation = (this.rotation + 360 - 90) % 360;
     this.piece.direction = rotateOpeningsAntiClockwise(this.piece.direction);
   }
 
-  private failRotateClockwise() {
+  failRotateClockwise() {
     animateFailure(this.el, this.rotation, true);
   }
 
-  private failRotateAntiClockwise() {
+  failRotateAntiClockwise() {
     animateFailure(this.el, this.rotation, false);
   }
 
-  private setPosition(x: number, y: number){
-    this.el.style.top = `${x*this.offset*100}%`;
-    this.el.style.left = `${y*this.offset*100}%`;
+  isLocatedAt(location: [number, number]){
+    const areEqual = (a: [number, number], b: [number, number]) => a[0] === b[0] && a[1] === b[1];
+
+    if (areEqual(location, this.piece.location)){
+      return true;
+    }
+
+    if (areEqual(location, this.getPotentialLocation())){
+      this.switchAttachment();
+      return true;
+    }
+  }
+
+  private getPotentialLocation() : [number, number] {
+    const back = [Openings.TOP, Openings.LEFT].includes(this.piece.direction);
+    const vertical = [Openings.TOP, Openings.BOTTOM].includes(this.piece.direction);
+
+    const loc: [number, number] = [this.piece.location[0], this.piece.location[1]];
+    loc[vertical ? 0 : 1] += back ? -1 : 1;
+
+    return loc;
+  }
+
+  private switchAttachment() {
+    this.piece.location = this.getPotentialLocation();
+    this.piece.direction = rotateOpeningsClockwise(this.piece.direction, 2);
+    this.rotation = (this.rotation + 180) % 360;
+    this.el.style.transform = `rotate(${this.rotation}deg)`;
+
+    this.setPosition(...this.piece.location);
+  }
+
+  private setPosition(x: number, y: number) {
+    this.el.style.top = `${x * this.offset * 100}%`;
+    this.el.style.left = `${y * this.offset * 100}%`;
   }
 }

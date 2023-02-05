@@ -1,6 +1,6 @@
 import {CellElement} from "./dom/cell_element";
-import {Level} from './levels';
-import {Openings} from "./definitions";
+import {Level, Piece} from './levels';
+import {Corners, Openings} from "./definitions";
 import {PieceElement} from "./dom/piece_element";
 
 export class GameArea {
@@ -9,6 +9,7 @@ export class GameArea {
 
   cellsEl: HTMLElement = document.querySelector('game-area > cells');
   piecesEl: HTMLElement = document.querySelector('game-area > pieces');
+  overlayEl: HTMLElement = document.querySelector('game-area > layout')
 
   private cells: CellElement[][] = [];
   private pieces: PieceElement[] = [];
@@ -23,24 +24,11 @@ export class GameArea {
     const scaling = 2 / (2 + (n-1)*Math.sqrt(2));
     const margin = -(scaling*n - 1) / (n - 1);
 
-    const canRotate = (i, j) => () => {
-      if (i > 0 && !(this.cells[i-1][j].openings & Openings.BOTTOM))
-        return false;
-      if (i < n - 1 && !(this.cells[i+1][j].openings & Openings.TOP))
-        return false;
-      if (j > 0 && !(this.cells[i][j-1].openings & Openings.RIGHT))
-        return false;
-      if (j < m - 1 && !(this.cells[i][j+1].openings & Openings.LEFT))
-        return false;
-
-      return true;
-    }
-
     let i = 0, j = 0;
     for (let row of level.cells) {
       const curRow = [];
       for (let cell of row) {
-        const cur = new CellElement(cell, scaling, margin, canRotate(i, j));
+        const cur = new CellElement(cell, scaling, margin);
 
         curRow.push(cur);
         this.cellsEl.appendChild(cur.el);
@@ -52,13 +40,50 @@ export class GameArea {
       ++i;
     }
 
+
     for(let piece of level.pieces) {
-      //TODO: off by a bit, piece will appear to change location based on attachment.
-      const cur = new PieceElement(piece, scaling, scaling + margin);
+      const cur = new PieceElement(piece, scaling, scaling + margin, this.attemptToMove);
 
       this.piecesEl.appendChild(cur.el);
       this.pieces.push(cur);
     }
+
+    this.piecesEl.addEventListener('mouseup', (event)=>{
+      for(let piece of this.pieces){
+        piece.onMouseUp(event);
+      }
+    });
+  }
+
+  attemptToMove = (location: [number, number], clockwise: boolean) => {
+    const [i, j] = location;
+
+    if(this.canRotate(i, j)){
+      clockwise ? this.cells[i][j].rotateClockwise() : this.cells[i][j].rotateAntiClockwise();
+
+      this.pieces.filter((piece) => piece.isLocatedAt(location)).forEach((pieceEl) => {
+        clockwise ? pieceEl.rotateClockwise() : pieceEl.rotateAntiClockwise();
+      })
+    } else{
+      clockwise ? this.cells[i][j].failRotateClockwise() : this.cells[i][j].failRotateAntiClockwise();
+
+      this.pieces.filter((piece) => piece.isLocatedAt(location)).forEach((pieceEl) => {
+        clockwise ? pieceEl.failRotateClockwise() : pieceEl.failRotateAntiClockwise();
+      })
+    }
+  }
+
+  private canRotate(i: number, j: number): boolean {
+    if (i > 0 && !(this.cells[i-1][j].openings & Openings.BOTTOM))
+      return false;
+    if (i < this.cells.length - 1 && !(this.cells[i+1][j].openings & Openings.TOP))
+      return false;
+    if (j > 0 && !(this.cells[i][j-1].openings & Openings.RIGHT))
+      return false;
+    if (j < this.cells[i].length - 1 && !(this.cells[i][j+1].openings & Openings.LEFT))
+      return false;
+
+    return true;
   }
 
   private clearBoard() {

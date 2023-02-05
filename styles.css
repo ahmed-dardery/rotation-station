@@ -17,16 +17,22 @@ game-area {
     line-height: 0;
 }
 
-game-area pieces,
-game-area cells {
+game-area > * {
     position: absolute;
     inset: 0;
 }
 
-game-area img {
+game-area cells img {
     aspect-ratio: 1 / 1;
 }
 
 game-area pieces img {
     position: absolute;
+    clip-path: ellipse(15% 34% at 14.62% 50%);
+    opacity: 1;
+    transition: opacity .3s ease;
+}
+
+game-area pieces img:hover {
+    opacity: 0.5;
 }

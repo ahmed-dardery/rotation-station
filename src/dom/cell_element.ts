@@ -6,7 +6,7 @@ export class CellElement {
   el: HTMLElement;
   private rotation: number;
 
-  constructor(public openings: Openings, scaling: number, margin: number, canRotate: () => boolean) {
+  constructor(public openings: Openings, scaling: number, margin: number) {
     const cellInfo = getCellInfo(openings);
     this.rotation = cellInfo.rotation;
 
@@ -17,21 +17,6 @@ export class CellElement {
     this.el.setAttribute('src', cellInfo.fileName);
 
     this.adjust(`${scaling * 100}%`, `${margin * 100}%`);
-
-    this.el.addEventListener('click', () => {
-      if (canRotate())
-        this.rotateClockwise();
-      else
-        this.failRotateClockwise();
-    });
-    this.el.addEventListener('contextmenu', (event) => {
-      event.preventDefault();
-
-      if (canRotate())
-        this.rotateAntiClockwise();
-      else
-        this.failRotateAntiClockwise();
-    });
   }
 
   deleteElement() {
