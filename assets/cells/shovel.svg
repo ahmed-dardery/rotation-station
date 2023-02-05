@@ -1,0 +1,30 @@
+<svg width="210" height="210"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="glow">
+            <feFlood flood-color="black" flood-opacity="0.6" in="SourceGraphic" />
+            <feComposite operator="in" in2="SourceGraphic" />
+            <feGaussianBlur stdDeviation="8" />
+            <feComponentTransfer result="glow1">
+                <feFuncA type="linear" slope="4" intercept="0" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode in="glow1" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <clipPath id="clip">
+            <path id="path" d="M 105 105 m -70.7 -70.7 a 100 100 0 0 0 141.4 0 a 100 100 0 0 0 0 141.4 a 100 100 0 0 0 -141.4 0 a 100 100 0 0 1 0 -141.4 z"/>
+        </clipPath>
+        <path id="midu" d="M 105 105 m -94.3 -33.3 a 150 150 0 0 0 94.3 33.3 h 100 v -100 h -200"/>
+        <path id="midd" d="M 105 105 m -94.3 33.3 a 150 150 0 0 1 94.3 -33.3 h 100 v 100 h -200"/>
+    </defs>
+    <use clip-path="url(#clip)" fill="#696969" xlink:href="#path"/>
+    <use clip-path="url(#clip)" fill="#D3D3D3" xlink:href="#midu"/>
+    <use clip-path="url(#clip)" fill="#D3D3D3" xlink:href="#midd"/>
+
+    <use filter="url(#glow)" clip-path="url(#clip)" fill="none" stroke="black" stroke-width="2" xlink:href="#path"/>
+    <use filter="url(#glow)" clip-path="url(#clip)" fill="none" stroke="black" xlink:href="#midu"/>
+    <use filter="url(#glow)" clip-path="url(#clip)" fill="none" stroke="black" xlink:href="#midd"/>
+</svg>

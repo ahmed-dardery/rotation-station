@@ -1,0 +1,23 @@
+<svg width="210" height="210"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="glow">
+            <feFlood flood-color="black" flood-opacity="0.6" in="SourceGraphic" />
+            <feComposite operator="in" in2="SourceGraphic" />
+            <feGaussianBlur stdDeviation="10" />
+            <feComponentTransfer result="glow1">
+                <feFuncA type="linear" slope="4" intercept="0" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode in="glow1" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <clipPath id="clip">
+            <path id="path" d="M 80 170 l 0 -130 l 40 65 l -40 65 z"/>
+        </clipPath>
+    </defs>
+    <use clip-path="url(#clip)" fill="#24F" xlink:href="#path"/>
+    <use filter="url(#glow)" clip-path="url(#clip)" fill="none" stroke="black" stroke-width="6" xlink:href="#path"/>
+</svg>

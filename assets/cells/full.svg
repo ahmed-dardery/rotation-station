@@ -1,0 +1,25 @@
+<svg width="210" height="210"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="glow">
+            <feFlood flood-color="black" flood-opacity="0.6" in="SourceGraphic" />
+            <feComposite operator="in" in2="SourceGraphic" />
+            <feGaussianBlur stdDeviation="8" />
+            <feComponentTransfer result="glow1">
+                <feFuncA type="linear" slope="4" intercept="0" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode in="glow1" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+    <circle fill="#D3D3D3" cx="105" cy="105" r="100" />
+    <circle fill="#696969" cx="105" cy="105" r="70.71" />
+    <circle fill="#D3D3D3" cx="105" cy="105" r="41.42" />
+
+    <circle filter="url(#glow)" fill="none" stroke="black" cx="105" cy="105" r="100" />
+    <circle filter="url(#glow)" fill="none" stroke="black" cx="105" cy="105" r="70.71" />
+    <circle filter="url(#glow)" fill="none" stroke="black" cx="105" cy="105" r="41.42" />
+</svg>
