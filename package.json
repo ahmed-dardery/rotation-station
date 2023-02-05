@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=development",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d . -s {index.html,app-bundle.js,styles.css,assets/**/*}"
   },
   "repository": {
     "type": "git",
