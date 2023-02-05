@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    margin: 50px;
+    overflow: hidden;
+}
+
+game-area {
+    user-select: none;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: radial-gradient(#EFEFEF, #C0C0C0);
+    border: #2F4F4F solid 1rem;
+    border-radius: 5%;
+    line-height: 0;
+}
+
+game-area > * {
+    position: absolute;
+    inset: 0;
+}
+
+game-area cells img {
+    aspect-ratio: 1 / 1;
+}
+
+game-area pieces img {
+    position: absolute;
+}
+
+.piece {
+    clip-path: ellipse(15% 34% at 14.62% 50%);
+    opacity: 1;
+    transition: opacity .3s ease;
+}
+
+.target {
+    clip-path: polygon(38% 18%, 57.5% 50%, 38% 82%);;
+}
+
+.piece:hover {
+    opacity: 0.5;
+}
