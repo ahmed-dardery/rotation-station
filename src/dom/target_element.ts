@@ -21,6 +21,10 @@ export class TargetElement {
     this.setPosition(target.location, target.direction);
   }
 
+  deleteElement() {
+    this.el.remove();
+  }
+
   private setPosition(loc: number, direction: Openings) {
     switch (direction) {
       case Openings.LEFT:

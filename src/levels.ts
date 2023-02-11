@@ -1,4 +1,4 @@
-import {Openings, Colors} from "./definitions";
+import {Colors, Openings} from "./definitions";
 
 export interface Piece {
   direction: Openings;
@@ -73,8 +73,16 @@ export function constructLevel(code: string): Level {
   return level;
 }
 
-export const LEVELS = [
-  'rb,tb,lb;rb,lr,tb;rb,tr,lb|l,2,2|b,0',
-  'tr,tb,lb;tr,tr,lr;tr,tb,tl|t,0,0;t,0,1;r,1,1;r,1,2|l,1;r,1;t,1;b,1',
-  'tb,lr,tb;tr,tr,tl;tl,tl,tl|t,0,0;b,0,0;r,1,1;l,2,0|r,0;t,1;l,1;r,2',
+export interface LevelDescription {
+  difficulty: string,
+  description: string,
+}
+
+export const LEVELS: LevelDescription[] = [
+  {difficulty: 'starter', description: 'rb,tb,lb;rb,lr,tb;rb,tr,lb|l,2,2|b,0'}, //1
+  {difficulty: 'starter', description: 'tr,tb,lb;tr,tr,lr;tr,tb,tl|t,0,0;t,0,1;r,1,1;r,1,2|l,1;r,1;t,1;b,1'}, //15
+  {difficulty: 'junior', description: 'tb,lr,lr;tr,tr,tr;tl,tl,tl|t,0,0;b,0,0;l,2,0|r,0;l,1;r,2'}, //30
+  {difficulty: 'expert', description: 'lr,lr,lb;tl,tl,tl;tb,tl,tl|b,0,2;b,2,0|b,0;r,1'}, //45
+  {difficulty: 'master', description: 'tb,lr,tb;tr,tr,tl;tl,tl,tl|t,0,0;b,0,0;r,1,1;l,2,0|r,0;t,1;l,1;r,2'}, //59
 ]
+

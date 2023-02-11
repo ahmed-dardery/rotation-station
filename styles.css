@@ -1,20 +1,90 @@
 body {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     position: absolute;
     inset: 0;
     margin: 50px;
     overflow: hidden;
+    gap: 5em;
 }
+
+controls {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+controls label {
+    padding: 15px 25px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    user-select: none;
+}
+
+controls input[type="radio"] {
+    display: none;
+}
+controls input[type="radio"]:checked + label {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+/***************************************************/
+controls label.starter {
+    background-color: #4CAF50;
+}
+
+controls label.starter:hover,
+controls > label.starter:focus,
+controls input[type="radio"]:checked + label.starter{
+    background-color: #3e8e41
+}
+/***************************************************/
+controls label.junior {
+    background-color: #af964c;
+}
+
+controls label.junior:hover,
+controls > label.junior:focus,
+controls input[type="radio"]:checked + label.junior{
+    background-color: #8e713e
+}
+/***************************************************/
+controls label.expert {
+    background-color: #b14141;
+}
+
+controls label.expert:hover,
+controls > label.expert:focus,
+controls input[type="radio"]:checked + label.expert{
+    background-color: #863131
+}
+/***************************************************/
+controls label.master {
+    background-color: #3746af;
+}
+
+controls label.master:hover,
+controls > label.master:focus,
+controls input[type="radio"]:checked + label.master{
+    background-color: #273786
+}
+
 
 game-area {
     user-select: none;
     position: relative;
-    aspect-ratio: 1 / 1;
     background: radial-gradient(#EFEFEF, #C0C0C0);
     border: #2F4F4F solid 1rem;
     border-radius: 5%;
     line-height: 0;
+    width: 70vmin;
+    height: 70vmin;
 }
 
 game-area > * {

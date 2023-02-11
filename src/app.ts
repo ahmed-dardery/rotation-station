@@ -1,6 +1,9 @@
 import {GameArea} from "./game_area";
-import {constructLevel, LEVELS} from './levels';
+import {LevelControls} from './level_controls';
+import {LEVELS} from './levels';
 
-const gameArea = GameArea.getInstance();
+const gameArea = new GameArea('game-area > cells', 'game-area > pieces');
+const levelControls = new LevelControls('controls');
 
-gameArea.initialize(constructLevel(LEVELS[1]));
+levelControls.initialize(gameArea, LEVELS);
+levelControls.setLevel(0);

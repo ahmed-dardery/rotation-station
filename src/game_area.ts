@@ -5,18 +5,23 @@ import {PieceElement} from "./dom/piece_element";
 import {TargetElement} from "./dom/target_element";
 
 export class GameArea {
-  private constructor() {
+  constructor(cellsSelector: string, piecesSelector: string) {
+    this.cellsEl = document.querySelector('game-area > cells');
+    this.piecesEl = document.querySelector('game-area > pieces');
+
     this.piecesEl.addEventListener('mouseup', (event) => this.piecesElMouseUp(event));
   }
 
-  cellsEl: HTMLElement = document.querySelector('game-area > cells');
-  piecesEl: HTMLElement = document.querySelector('game-area > pieces');
+  cellsEl: HTMLElement;
+  piecesEl: HTMLElement;
 
   private cells: CellElement[][] = [];
   private pieces: PieceElement[] = [];
   private targets: TargetElement[] = [];
 
   private piecesElMouseUp: (event) => void;
+
+  isDirty = false;
 
   initialize(level: Level) {
     this.clearBoard();
@@ -70,6 +75,8 @@ export class GameArea {
     const [i, j] = location;
 
     if (this.canRotate(i, j)) {
+      this.isDirty = true;
+
       clockwise ? this.cells[i][j].rotateClockwise() : this.cells[i][j].rotateAntiClockwise();
 
       this.pieces.filter((piece) => piece.isLocatedAt(location)).forEach((pieceEl) => {
@@ -107,9 +114,15 @@ export class GameArea {
     for (let piece of this.pieces) {
       piece.deleteElement();
     }
-  }
 
-  static getInstance(): GameArea {
-    return new GameArea();
+    for (let target of this.targets) {
+      target.deleteElement();
+    }
+
+    this.cells = [];
+    this.pieces = [];
+    this.targets = [];
+
+    this.isDirty = false;
   }
 }
