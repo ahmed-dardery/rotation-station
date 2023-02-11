@@ -1,45 +1,28 @@
-export function animateRotate(element: HTMLElement & { rotationID?: number }, start: number, end: number) {
-  let angle = start;
-  if (element.rotationID) {
-    window.clearInterval(element.rotationID);
-  }
-  const diff = start < end ? 5 : -5;
+export function animateRotate(element: HTMLElement, start: number, end: number) {
 
-  element.rotationID = window.setInterval(() => {
-    angle += diff;
+  element.style.transform = `rotate(${end}deg)`
 
-    if (diff > 0 && angle >= end || diff < 0 && angle <= end) {
-      angle = end;
-      window.clearInterval(element.rotationID);
-    }
-    element.style.transform = `rotate(${angle}deg)`
-  }, 10);
-
+  element.animate([
+    { transform: `rotate(${start}deg)` },
+    { transform: `rotate(${end}deg)` },
+  ], {
+    duration: 400,
+    easing: 'ease',
+  })
 }
 
-export function animateFailure(element: HTMLElement & { rotationID?: number }, angle: number, clockwise: boolean) {
-  if (element.rotationID) {
-    window.clearInterval(element.rotationID);
-  }
-  let diff = clockwise ? 2 : -2;
-  let total = 0;
-  let times = 0;
-  let myAngle = angle;
-  const totalTimes = 3;
-  const max = 3;
+export function animateFailure(element: HTMLElement, angle: number, clockwise: boolean) {
 
-  element.rotationID = window.setInterval(() => {
-    myAngle += diff;
-    total += diff;
+  const delta = clockwise ? 3 : -3;
 
-    element.style.transform = `rotate(${myAngle}deg)`
-    if (Math.abs(total) > max) {
-      diff *= -1;
-      ++times;
-    }
-
-    if (times >= totalTimes && myAngle === angle) {
-      window.clearInterval(element.rotationID);
-    }
-  }, 10);
+  element.animate([
+    { transform: `rotate(${angle}deg)` },
+    { transform: `rotate(${angle+delta}deg)` },
+    { transform: `rotate(${angle}deg)` },
+    { transform: `rotate(${angle-delta}deg)` },
+    { transform: `rotate(${angle}deg)` },
+  ], {
+    duration: 100,
+    iterations: 3,
+  })
 }
