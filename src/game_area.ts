@@ -8,8 +8,6 @@ export class GameArea {
   constructor(cellsSelector: string, piecesSelector: string) {
     this.cellsEl = document.querySelector('game-area > cells');
     this.piecesEl = document.querySelector('game-area > pieces');
-
-    this.piecesEl.addEventListener('mouseup', (event) => this.piecesElMouseUp(event));
   }
 
   cellsEl: HTMLElement;
@@ -19,7 +17,7 @@ export class GameArea {
   private pieces: PieceElement[] = [];
   private targets: TargetElement[] = [];
 
-  private piecesElMouseUp: (event) => void;
+  piecesElMouseUp: (event) => void;
 
   isDirty = false;
 
