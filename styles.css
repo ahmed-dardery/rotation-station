@@ -6,8 +6,8 @@ body {
     position: absolute;
     inset: 0;
     margin: 50px;
+    gap: 3em;
     overflow: hidden;
-    gap: 5em;
 }
 
 controls {
@@ -40,7 +40,7 @@ controls label.starter {
 }
 
 controls label.starter:hover,
-controls > label.starter:focus,
+controls label.starter:focus,
 controls input[type="radio"]:checked + label.starter{
     background-color: #3e8e41
 }
@@ -50,7 +50,7 @@ controls label.junior {
 }
 
 controls label.junior:hover,
-controls > label.junior:focus,
+controls label.junior:focus,
 controls input[type="radio"]:checked + label.junior{
     background-color: #8e713e
 }
@@ -60,7 +60,7 @@ controls label.expert {
 }
 
 controls label.expert:hover,
-controls > label.expert:focus,
+controls label.expert:focus,
 controls input[type="radio"]:checked + label.expert{
     background-color: #863131
 }
@@ -70,7 +70,7 @@ controls label.master {
 }
 
 controls label.master:hover,
-controls > label.master:focus,
+controls label.master:focus,
 controls input[type="radio"]:checked + label.master{
     background-color: #273786
 }
@@ -82,9 +82,15 @@ game-area {
     background: radial-gradient(#EFEFEF, #C0C0C0);
     border: #2F4F4F solid 1rem;
     border-radius: 5%;
-    line-height: 0;
-    width: 70vmin;
     height: 70vmin;
+    aspect-ratio: 1/1;
+}
+
+container {
+    overflow: hidden;
+}
+game-area cells {
+    line-height: 0;
 }
 
 game-area > * {
@@ -93,7 +99,7 @@ game-area > * {
 }
 
 game-area cells img {
-    aspect-ratio: 1 / 1;
+    position: absolute;
 }
 
 game-area pieces img {
