@@ -19,6 +19,7 @@ export class PieceElement {
     this.el.setAttribute('class', 'piece');
 
     this.el.style.width = `${scaling * 100}%`;
+    this.el.style.height = `${scaling * 100}%`;
 
     this.rotation = getRotation(piece.direction);
     this.el.style.transform = `rotate(${this.rotation}deg)`;

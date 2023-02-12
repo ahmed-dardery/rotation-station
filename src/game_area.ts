@@ -31,13 +31,13 @@ export class GameArea {
 
     // TODO: assumes n is same as m, and shape is perfect square.
     const scaling = 2 / (2 + (n - 1) * Math.sqrt(2));
-    const margin = -(scaling * n - 1) / (n - 1);
+    const offset = (1 - scaling) / (n - 1);
 
     let i = 0, j = 0;
     for (let row of level.cells) {
       const curRow = [];
       for (let cell of row) {
-        const cur = new CellElement(cell, scaling, margin);
+        const cur = new CellElement(cell, scaling, offset, i, j);
 
         curRow.push(cur);
         this.cellsEl.appendChild(cur.el);
@@ -51,7 +51,7 @@ export class GameArea {
 
 
     for (let piece of level.pieces) {
-      const cur = new PieceElement(piece, scaling, scaling + margin, this.attemptToMove);
+      const cur = new PieceElement(piece, scaling, offset, this.attemptToMove);
 
       this.piecesEl.appendChild(cur.el);
       this.pieces.push(cur);
@@ -64,7 +64,7 @@ export class GameArea {
     }
 
     for (let target of level.targets) {
-      const cur = new TargetElement(target, scaling, scaling + margin);
+      const cur = new TargetElement(target, scaling, offset);
 
       this.piecesEl.appendChild(cur.el);
       this.targets.push(cur);
@@ -96,13 +96,13 @@ export class GameArea {
 
     // TODO: assumes n is same as m, and shape is perfect square.
     const scaling = 2 / (2 + (n - 1) * Math.sqrt(2));
-    const margin = -(scaling * n - 1) / (n - 1);
+    const offset = (1 - scaling) / (n - 1);
 
     let i = 0, j = 0;
     for (let i = 0; i < n; ++i) {
       const curRow = [];
       for (let j = 0; j < m; ++j) {
-        const cur = new CellElement(Openings.NONE, scaling, margin);
+        const cur = new CellElement(Openings.NONE, scaling, offset, i, j);
         curRow.push(cur);
 
         cur.el.addEventListener('click', () => {

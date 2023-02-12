@@ -6,8 +6,8 @@ body {
     position: absolute;
     inset: 0;
     margin: 50px;
-    overflow: hidden;
     gap: 3em;
+    overflow: hidden;
 }
 
 controls {
@@ -82,9 +82,15 @@ game-area {
     background: radial-gradient(#EFEFEF, #C0C0C0);
     border: #2F4F4F solid 1rem;
     border-radius: 5%;
-    line-height: 0;
-    width: 70vmin;
     height: 70vmin;
+    aspect-ratio: 1/1;
+}
+
+container {
+    overflow: hidden;
+}
+game-area cells {
+    line-height: 0;
 }
 
 game-area > * {
@@ -93,7 +99,7 @@ game-area > * {
 }
 
 game-area cells img {
-    aspect-ratio: 1 / 1;
+    position: absolute;
 }
 
 game-area pieces img {

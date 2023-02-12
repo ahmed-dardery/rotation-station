@@ -14,6 +14,7 @@ export class TargetElement {
     this.el.setAttribute('class', 'target');
 
     this.el.style.width = `${scaling * 100}%`;
+    this.el.style.height = `${scaling * 100}%`;
 
     this.rotation = getRotation(target.direction);
     this.el.style.transform = `rotate(${this.rotation}deg)`;

@@ -7,13 +7,13 @@ export class CellElement {
   private rotation: number;
   public openings: Openings;
 
-  constructor(openings: Openings, scaling: number, margin: number) {
+  constructor(openings: Openings, scaling: number, offset: number, i: number, j: number) {
     this.el = document.createElement('img');
     this.el.setAttribute('draggable', 'false');
 
     this.updateOpenings(openings);
 
-    this.adjust(`${scaling * 100}%`, `${margin * 100}%`);
+    this.adjust(scaling, offset, i, j);
   }
 
   updateOpenings(openings: Openings) {
@@ -49,9 +49,10 @@ export class CellElement {
     animateFailure(this.el, this.rotation, false);
   }
 
-  adjust(edge: string, margin: string) {
-    this.el.style.width = edge;
-    this.el.style.marginRight = margin;
-    this.el.style.marginBottom = margin
+  adjust(edge: number, offset: number, i: number, j: number) {
+    this.el.style.width = `${edge*100}%`;
+    this.el.style.height = `${edge*100}%`;
+    this.el.style.left = `${offset * j * 100}%`;
+    this.el.style.top = `${offset * i * 100}%`;
   }
 }
