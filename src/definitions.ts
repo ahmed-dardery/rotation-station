@@ -33,6 +33,30 @@ export function rotateOpeningsAntiClockwise(openings: Openings, n = 1): Openings
   return ((openings >> (4-n)) | (openings << n)) & 0b1111;
 }
 
+const openingsCycle: Openings[] = [
+  0b0000,
+  0b1100,
+  0b0110,
+  0b0011,
+  0b1001,
+  0b1010,
+  0b0101,
+  0b1110,
+  0b0111,
+  0b1011,
+  0b1101,
+  0b1000,
+  0b0100,
+  0b0010,
+  0b0001,
+  0b1111,
+];
+
+export function cycleOpenings(openings: Openings, backwards = false): Openings {
+  const idx = openingsCycle.findIndex((v) => v === openings);
+  const nxt = (idx + (backwards ? 15 : 1)) % 16;
+  return openingsCycle[nxt];
+}
 /** Assumes Left is 0, returns clockwise angle. */
 export function getRotation(opening: Openings): Rotation {
   switch(opening){

@@ -61,6 +61,7 @@ export function getCellInfo(openings: Openings): CellInfo{
       }
     }
   }
+  throw new Error(`unable to find info for ${openings}`);
 }
 
 export function getPieceFileName(piece: Colors): string{

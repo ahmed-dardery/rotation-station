@@ -7,7 +7,7 @@ body {
     inset: 0;
     margin: 50px;
     overflow: hidden;
-    gap: 5em;
+    gap: 3em;
 }
 
 controls {
@@ -40,7 +40,7 @@ controls label.starter {
 }
 
 controls label.starter:hover,
-controls > label.starter:focus,
+controls label.starter:focus,
 controls input[type="radio"]:checked + label.starter{
     background-color: #3e8e41
 }
@@ -50,7 +50,7 @@ controls label.junior {
 }
 
 controls label.junior:hover,
-controls > label.junior:focus,
+controls label.junior:focus,
 controls input[type="radio"]:checked + label.junior{
     background-color: #8e713e
 }
@@ -60,7 +60,7 @@ controls label.expert {
 }
 
 controls label.expert:hover,
-controls > label.expert:focus,
+controls label.expert:focus,
 controls input[type="radio"]:checked + label.expert{
     background-color: #863131
 }
@@ -70,7 +70,7 @@ controls label.master {
 }
 
 controls label.master:hover,
-controls > label.master:focus,
+controls label.master:focus,
 controls input[type="radio"]:checked + label.master{
     background-color: #273786
 }

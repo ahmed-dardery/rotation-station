@@ -1,6 +1,6 @@
 import {CellElement} from "./dom/cell_element";
 import {Level} from './levels';
-import {Openings} from "./definitions";
+import {Openings, cycleOpenings} from "./definitions";
 import {PieceElement} from "./dom/piece_element";
 import {TargetElement} from "./dom/target_element";
 
@@ -91,6 +91,36 @@ export class GameArea {
     }
   }
 
+  levelEditor(n: number, m: number) {
+    this.clearBoard();
+
+    // TODO: assumes n is same as m, and shape is perfect square.
+    const scaling = 2 / (2 + (n - 1) * Math.sqrt(2));
+    const margin = -(scaling * n - 1) / (n - 1);
+
+    let i = 0, j = 0;
+    for (let i = 0; i < n; ++i) {
+      const curRow = [];
+      for (let j = 0; j < m; ++j) {
+        const cur = new CellElement(Openings.NONE, scaling, margin);
+        curRow.push(cur);
+
+        cur.el.addEventListener('click', () => {
+          cur.updateOpenings(cycleOpenings(cur.openings));
+        });
+        cur.el.addEventListener('contextmenu', (e) => {
+          cur.updateOpenings(cycleOpenings(cur.openings, true));
+          e.preventDefault();
+        });
+
+        this.cellsEl.appendChild(cur.el);
+
+      }
+      this.cells.push(curRow);
+
+    }
+  }
+
   private canRotate(i: number, j: number): boolean {
     if (i > 0 && !(this.cells[i - 1][j].openings & Openings.BOTTOM))
       return false;
@@ -105,6 +135,9 @@ export class GameArea {
   }
 
   private clearBoard() {
+    this.cellsEl.style.zIndex = null;
+    this.piecesEl.style.zIndex = null;
+
     for (let row of this.cells) {
       for (let cell of row) {
         cell.deleteElement();

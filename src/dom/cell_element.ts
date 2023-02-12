@@ -5,18 +5,24 @@ import {animateFailure, animateRotate} from "./animation";
 export class CellElement {
   el: HTMLElement;
   private rotation: number;
+  public openings: Openings;
 
-  constructor(public openings: Openings, scaling: number, margin: number) {
-    const cellInfo = getCellInfo(openings);
-    this.rotation = cellInfo.rotation;
-
+  constructor(openings: Openings, scaling: number, margin: number) {
     this.el = document.createElement('img');
     this.el.setAttribute('draggable', 'false');
-    this.el.style.transform = `rotate(${cellInfo.rotation}deg)`;
 
-    this.el.setAttribute('src', cellInfo.fileName);
+    this.updateOpenings(openings);
 
     this.adjust(`${scaling * 100}%`, `${margin * 100}%`);
+  }
+
+  updateOpenings(openings: Openings) {
+    this.openings = openings;
+
+    const cellInfo = getCellInfo(openings);
+    this.rotation = cellInfo.rotation;
+    this.el.style.transform = `rotate(${cellInfo.rotation}deg)`;
+    this.el.setAttribute('src', cellInfo.fileName);
   }
 
   deleteElement() {
