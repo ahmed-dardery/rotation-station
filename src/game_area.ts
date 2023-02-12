@@ -17,7 +17,7 @@ export class GameArea {
   private pieces: PieceElement[] = [];
   private targets: TargetElement[] = [];
 
-  piecesElMouseUp: (event) => void;
+  piecesElMouseUp: (x, y) => void;
 
   isDirty = false;
 
@@ -55,9 +55,9 @@ export class GameArea {
       this.pieces.push(cur);
     }
 
-    this.piecesElMouseUp = (event) => {
+    this.piecesElMouseUp = (x, y) => {
       for (let piece of this.pieces) {
-        piece.onMouseUp(event);
+        piece.onMouseUp(x, y);
       }
     }
 

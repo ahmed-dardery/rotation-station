@@ -29,25 +29,31 @@ export class PieceElement {
     this.el.addEventListener('mousedown', (event: MouseEvent) => {
       this.mouseDown = [event.x, event.y];
     });
+
+    this.el.addEventListener('touchstart', (event: TouchEvent) => {
+      if(event.touches[0]) {
+        this.mouseDown = [event.touches[0].clientX, event.touches[0].clientY];
+      }
+    });
   }
 
-  onMouseUp(event) {
+  onMouseUp(x, y) {
     if (this.mouseDown == null){
       return;
     }
 
-    const [x, y] = this.mouseDown;
+    const [xlast, ylast] = this.mouseDown;
     this.mouseDown = null;
 
     let corner: Corners = 0;
 
-    if (event.x > x){
+    if (x > xlast){
       corner |= Openings.RIGHT;
     } else {
       corner |= Openings.LEFT;
     }
 
-    if (event.y > y){
+    if (y > ylast){
       corner |= Openings.BOTTOM;
     } else {
       corner |= Openings.TOP;
