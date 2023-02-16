@@ -1,6 +1,6 @@
 import {Target} from "../levels";
 import {getTargetFileName} from "../svgs";
-import {getRotation, Openings, rotateOpeningsClockwise} from "../definitions";
+import {getRotation, Openings} from "../definitions";
 
 export class TargetElement {
   el: HTMLElement;

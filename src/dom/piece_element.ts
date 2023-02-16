@@ -105,6 +105,18 @@ export class PieceElement {
     }
   }
 
+  isAt(location: [number, number], direction: Openings) {
+    const areEqual = (a: [number, number], b: [number, number]) => a[0] === b[0] && a[1] === b[1];
+
+    if (areEqual(location, this.piece.location) && this.piece.direction === direction){
+      return true;
+    }
+
+    if (areEqual(location, this.getPotentialLocation()) && rotateOpeningsClockwise(this.piece.direction, 2) === direction){
+      return true;
+    }
+  }
+
   private getPotentialLocation() : [number, number] {
     const back = [Openings.TOP, Openings.LEFT].includes(this.piece.direction);
     const vertical = [Openings.TOP, Openings.BOTTOM].includes(this.piece.direction);

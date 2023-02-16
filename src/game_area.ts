@@ -8,6 +8,7 @@ export class GameArea {
   constructor(cellsSelector: string, piecesSelector: string) {
     this.cellsEl = document.querySelector('game-area > cells');
     this.piecesEl = document.querySelector('game-area > pieces');
+    this.doneSound.volume = 0.1;
   }
 
   cellsEl: HTMLElement;
@@ -16,6 +17,8 @@ export class GameArea {
   private cells: CellElement[][] = [];
   private pieces: PieceElement[] = [];
   private targets: TargetElement[] = [];
+
+  doneSound = new Audio('assets/sounds/tada.wav');
 
   piecesElMouseUp: (x, y) => void;
 
@@ -87,6 +90,12 @@ export class GameArea {
         clockwise ? pieceEl.failRotateClockwise() : pieceEl.failRotateAntiClockwise();
       })
     }
+
+    if (this.isWinCondition()){
+      this.isDirty = false;
+      this.cellsEl.style.zIndex = '1';
+      setTimeout( () => this.doneSound.play(), 500);
+    }
   }
 
   levelEditor(n: number, m: number) {
@@ -119,6 +128,36 @@ export class GameArea {
     }
   }
 
+  isWinCondition() {
+    for (let i = 0; i < this.pieces.length; ++i){
+      if (!this.isPieceAtTarget(this.pieces[i], this.targets[i])){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  isPieceAtTarget(piece: PieceElement, target: TargetElement){
+    switch (target.target.direction){
+      case Openings.TOP:
+        if (piece.isAt([0, target.target.location], Openings.TOP))
+          return true;
+        break;
+      case Openings.LEFT:
+        if (piece.isAt([target.target.location, 0], Openings.LEFT))
+          return true;
+        break;
+      case Openings.BOTTOM:
+        if (piece.isAt([this.cells.length - 1, target.target.location], Openings.BOTTOM))
+          return true;
+        break;
+      case Openings.RIGHT:
+        if (piece.isAt([target.target.location, this.cells[0].length - 1], Openings.RIGHT))
+          return true;
+        break;
+    }
+    return false;
+  }
   private canRotate(i: number, j: number): boolean {
     if (i > 0 && !(this.cells[i - 1][j].openings & Openings.BOTTOM))
       return false;
